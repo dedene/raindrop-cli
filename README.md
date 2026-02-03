@@ -1,4 +1,4 @@
-# raindrop-cli
+# 🔖 raindrop-cli - Raindrop in your terminal
 
 [![CI](https://github.com/dedene/raindrop-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/dedene/raindrop-cli/actions/workflows/ci.yml)
 [![Go 1.23+](https://img.shields.io/badge/go-1.23+-00ADD8.svg)](https://go.dev/)
