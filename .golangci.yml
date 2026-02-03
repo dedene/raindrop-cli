@@ -1,0 +1,144 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - cyclop
+    - depguard
+    - dupword
+    - dupl
+    - err113
+    - errcheck
+    - errorlint
+    - forbidigo
+    - goconst
+    - gocritic
+    - gocyclo
+    - gosec
+    - govet
+    - ineffassign
+    - makezero
+    - misspell
+    - nilerr
+    - nilnil
+    - noctx
+    - nolintlint
+    - paralleltest
+    - prealloc
+    - predeclared
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - tagliatelle
+    - thelper
+    - tparallel
+    - durationcheck
+    - unparam
+    - unused
+    - wastedassign
+    - whitespace
+    - wrapcheck
+    - wsl
+
+  settings:
+    cyclop:
+      max-complexity: 50
+    dupl:
+      threshold: 150
+    depguard:
+      rules:
+        main:
+          list-mode: lax
+          files:
+            - $all
+          deny:
+            - pkg: io/ioutil
+              desc: "deprecated; use io or os"
+    goconst:
+      min-len: 3
+      min-occurrences: 4
+    gocyclo:
+      min-complexity: 50
+    forbidigo:
+      forbid:
+        - pattern: "^log\\."
+          msg: "avoid std log; use output package"
+    revive:
+      rules:
+        - name: blank-imports
+        - name: empty-lines
+        - name: errorf
+        - name: import-shadowing
+        - name: range
+        - name: unnecessary-stmt
+    tagliatelle:
+      case:
+        rules:
+          json: snake
+          yaml: snake
+        overrides:
+          - pkg: github.com/dedene/raindrop-cli/internal/cmd
+            ignore: true
+          - pkg: github.com/dedene/raindrop-cli/internal/api
+            ignore: true
+    wsl:
+      allow-assign-and-call: true
+      allow-cuddle-declarations: true
+      allow-multiline-assign: true
+      allow-separated-leading-comment: true
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+
+  exclusions:
+    presets:
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters:
+          - errcheck
+          - cyclop
+          - gocyclo
+          - gosec
+          - dupl
+          - goconst
+          - tagliatelle
+          - paralleltest
+      - path: internal/cmd/.*\.go
+        linters:
+          - err113
+          - wrapcheck
+          - dupl
+          - wsl
+          - tagliatelle
+      - path: internal/api/types\.go
+        linters:
+          - tagliatelle
+      - path: cmd/.*\.go
+        linters:
+          - wsl
+      - linters:
+          - errcheck
+        text: "Error return value of `fmt\\.Fprint"
+      - linters:
+          - errcheck
+        text: "Error return value of .*.Close"
+      - linters:
+          - staticcheck
+        text: "QF1001"
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/dedene/raindrop-cli
