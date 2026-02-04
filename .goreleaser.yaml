@@ -47,3 +47,20 @@ archives:
 
 checksum:
   name_template: checksums.txt
+
+brews:
+  - repository:
+      owner: dedene
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    commit_author:
+      name: Peter Dedene
+      email: peter@dedene.com
+    directory: Formula
+    homepage: https://github.com/dedene/raindrop-cli
+    description: CLI for Raindrop.io - manage bookmarks, collections, and tags
+    license: MIT
+    install: |
+      bin.install "raindrop"
+    test: |
+      system "#{bin}/raindrop", "--version"
