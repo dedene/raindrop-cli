@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/dedene/raindrop-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/dedene/raindrop-cli/actions/workflows/ci.yml)
 [![Go 1.23+](https://img.shields.io/badge/go-1.23+-00ADD8.svg)](https://go.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dedene/raindrop-cli)](https://goreportcard.com/report/github.com/dedene/raindrop-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A command-line interface for [Raindrop.io](https://raindrop.io) bookmark management.
 
