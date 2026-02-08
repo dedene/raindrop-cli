@@ -184,6 +184,16 @@ Add multiple URLs from stdin:
 echo -e "https://a.com\nhttps://b.com" | raindrop add -
 ```
 
+## Claude Code Skill
+
+Install as a Claude Code skill:
+
+```bash
+npx skills add dedene/raindrop-cli
+```
+
+This enables Claude to use the CLI for bookmark management and organization.
+
 ## License
 
 MIT
