@@ -7,6 +7,14 @@
 
 A command-line interface for [Raindrop.io](https://raindrop.io) bookmark management.
 
+## Agent Skill
+
+This CLI is available as an [open agent skill](https://skills.sh/) for AI assistants including [Claude Code](https://claude.ai/code), [OpenClaw](https://openclaw.ai/), [Codex](https://github.com/openai/codex), Cursor, GitHub Copilot, and [35+ agents](https://github.com/vercel-labs/skills#supported-agents).
+
+```bash
+npx skills add dedene/raindrop-cli
+```
+
 ## Installation
 
 ### Homebrew
@@ -182,14 +190,6 @@ Add multiple URLs from stdin:
 
 ```bash
 echo -e "https://a.com\nhttps://b.com" | raindrop add -
-```
-
-## Agent Skill
-
-This CLI is available as an [open agent skill](https://skills.sh/) for AI assistants including [Claude Code](https://claude.ai/code), [OpenClaw](https://openclaw.ai/), Cursor, and GitHub Copilot:
-
-```bash
-npx skills add dedene/raindrop-cli
 ```
 
 ## License
