@@ -254,3 +254,10 @@ raindrop list trash --json | jq -r '.[].id' | xargs -I{} raindrop delete {} --fo
 - Confirm destructive operations (`delete`) with the user first.
 - Collections and tags are case-insensitive for matching.
 - Use `--no-input` in CI/scripts to fail on prompts instead of hanging.
+
+
+## Installation
+
+```bash
+brew install dedene/tap/raindrop
+```
