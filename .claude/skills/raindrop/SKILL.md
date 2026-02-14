@@ -5,6 +5,27 @@ description: >
   search, update, or delete bookmarks, organize collections, manage tags, work with highlights,
   import/export bookmarks, or automate bookmark workflows. Triggered by mentions of Raindrop,
   bookmarks, reading lists, collections, or link management.
+license: MIT
+homepage: https://github.com/dedene/raindrop-cli
+metadata:
+  author: dedene
+  version: "1.1.0"
+  openclaw:
+    primaryEnv: RAINDROP_TOKEN
+    requires:
+      env:
+        - RAINDROP_TOKEN
+        - RAINDROP_KEYRING_BACKEND
+      bins:
+        - raindrop
+    install:
+      - kind: brew
+        tap: dedene/tap
+        formula: raindrop
+        bins: [raindrop]
+      - kind: go
+        package: github.com/dedene/raindrop-cli/cmd/raindrop
+        bins: [raindrop]
 ---
 
 # raindrop-cli
