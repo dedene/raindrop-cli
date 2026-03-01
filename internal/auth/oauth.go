@@ -13,11 +13,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/exec"
-	"runtime"
 	"strings"
 	"time"
 
+	"github.com/dedene/raindrop-cli/internal/browser"
 	"golang.org/x/oauth2"
 )
 
@@ -42,7 +41,6 @@ var (
 	errNoRefreshToken      = errors.New("no refresh token received")
 	errStateMismatch       = errors.New("state mismatch")
 	errTokenExchangeFailed = errors.New("token exchange failed")
-	errUnsupportedPlatform = errors.New("unsupported platform")
 	openBrowserFn          = openBrowser
 	randomStateFn          = randomState
 )
@@ -117,8 +115,8 @@ func authorizeManual(ctx context.Context, cfg oauth2.Config, creds OAuthCredenti
 		return "", err
 	}
 
-	if gotState != "" && gotState != state {
-		return "", errStateMismatch
+	if err := validateOAuthState(state, gotState); err != nil {
+		return "", err
 	}
 
 	tok, err := exchangeAuthorizationCode(ctx, creds, cfg.RedirectURL, code)
@@ -179,9 +177,9 @@ func authorizeWithServer(ctx context.Context, cfg oauth2.Config, creds OAuthCred
 				return
 			}
 
-			if q.Get("state") != state {
+			if err := validateOAuthState(state, q.Get("state")); err != nil {
 				select {
-				case errCh <- errStateMismatch:
+				case errCh <- err:
 				default:
 				}
 
@@ -295,25 +293,16 @@ func extractCodeAndState(rawURL string) (code, state string, err error) {
 	return code, parsed.Query().Get("state"), nil
 }
 
-func openBrowser(targetURL string) error {
-	var cmd *exec.Cmd
-
-	switch runtime.GOOS {
-	case "darwin":
-		cmd = exec.Command("open", targetURL)
-	case "linux":
-		cmd = exec.Command("xdg-open", targetURL)
-	case "windows":
-		cmd = exec.Command("cmd", "/c", "start", targetURL)
-	default:
-		return fmt.Errorf("%w: %s", errUnsupportedPlatform, runtime.GOOS)
-	}
-
-	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("start browser: %w", err)
+func validateOAuthState(expected, got string) error {
+	if got != expected {
+		return errStateMismatch
 	}
 
 	return nil
+}
+
+func openBrowser(targetURL string) error {
+	return browser.OpenURL(targetURL)
 }
 
 const successHTML = `<!DOCTYPE html>

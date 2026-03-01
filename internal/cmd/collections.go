@@ -131,7 +131,7 @@ func (c *CollectionsCreateCmd) Run(flags *RootFlags) error {
 		return output.WriteJSON(os.Stdout, collection)
 	}
 
-	fmt.Fprintf(os.Stdout, "Created: %s (ID: %d)\n", collection.Title, collection.ID)
+	fmt.Fprintf(os.Stdout, "Created: %s (ID: %d)\n", output.SanitizeInline(collection.Title), collection.ID)
 
 	return nil
 }
@@ -176,7 +176,7 @@ func (c *CollectionsUpdateCmd) Run(flags *RootFlags) error {
 		return output.WriteJSON(os.Stdout, collection)
 	}
 
-	fmt.Fprintf(os.Stdout, "Updated: %s (ID: %d)\n", collection.Title, collection.ID)
+	fmt.Fprintf(os.Stdout, "Updated: %s (ID: %d)\n", output.SanitizeInline(collection.Title), collection.ID)
 
 	return nil
 }
@@ -207,9 +207,9 @@ func (c *CollectionsDeleteCmd) Run(flags *RootFlags) error {
 		return errfmt.Format(err)
 	}
 
-	msg := fmt.Sprintf("Delete collection '%s' (ID: %d)?", collection.Title, collection.ID)
+	msg := fmt.Sprintf("Delete collection '%s' (ID: %d)?", output.SanitizeInline(collection.Title), collection.ID)
 	if collection.Count > 0 {
-		msg = fmt.Sprintf("Delete collection '%s' with %d raindrop(s)?", collection.Title, collection.Count)
+		msg = fmt.Sprintf("Delete collection '%s' with %d raindrop(s)?", output.SanitizeInline(collection.Title), collection.Count)
 	}
 
 	if !confirmAction(msg, flags) {

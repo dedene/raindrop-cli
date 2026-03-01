@@ -17,7 +17,7 @@ func FormatCollectionRow(c *api.Collection) []string {
 
 	return []string{
 		fmt.Sprintf("%d", c.ID),
-		c.Title,
+		SanitizeInline(c.Title),
 		fmt.Sprintf("%d", c.Count),
 		parent,
 	}
@@ -31,7 +31,7 @@ func CollectionTableHeaders() []string {
 // FormatCollectionDetail writes full collection details to w.
 func FormatCollectionDetail(w io.Writer, c *api.Collection) {
 	fmt.Fprintf(w, "%s %d\n", StyleBold("ID:"), c.ID)
-	fmt.Fprintf(w, "%s %s\n", StyleBold("Name:"), c.Title)
+	fmt.Fprintf(w, "%s %s\n", StyleBold("Name:"), SanitizeInline(c.Title))
 	fmt.Fprintf(w, "%s %d\n", StyleBold("Count:"), c.Count)
 
 	if c.ParentID() != 0 {
@@ -39,7 +39,7 @@ func FormatCollectionDetail(w io.Writer, c *api.Collection) {
 	}
 
 	if c.Color != "" {
-		fmt.Fprintf(w, "%s %s\n", StyleBold("Color:"), c.Color)
+		fmt.Fprintf(w, "%s %s\n", StyleBold("Color:"), SanitizeInline(c.Color))
 	}
 
 	fmt.Fprintf(w, "%s %s\n", StyleBold("Created:"), c.Created.Format("2006-01-02 15:04"))
@@ -106,7 +106,7 @@ func (t *CollectionTree) renderChildren(parentID int, prefix string) {
 			connector = "└── "
 		}
 
-		fmt.Fprintf(t.w, "%s%s%s (%d)\n", prefix, connector, c.Title, c.Count)
+		fmt.Fprintf(t.w, "%s%s%s (%d)\n", prefix, connector, SanitizeInline(c.Title), c.Count)
 
 		// Recurse for children
 		childPrefix := prefix + "│   "

@@ -6,7 +6,7 @@ require (
 	github.com/99designs/keyring v1.2.2
 	github.com/alecthomas/kong v1.6.1
 	github.com/muesli/termenv v0.16.0
-	golang.org/x/oauth2 v0.25.0
+	golang.org/x/oauth2 v0.27.0
 	golang.org/x/term v0.28.0
 	gopkg.in/yaml.v3 v3.0.1
 )

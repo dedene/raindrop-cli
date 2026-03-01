@@ -70,7 +70,7 @@ func (c *AddCmd) Run(flags *RootFlags) error {
 		return output.WriteJSON(os.Stdout, raindrop)
 	}
 
-	fmt.Fprintf(os.Stdout, "Added: %s (ID: %d)\n", raindrop.Title, raindrop.ID)
+	fmt.Fprintf(os.Stdout, "Added: %s (ID: %d)\n", output.SanitizeInline(raindrop.Title), raindrop.ID)
 
 	return nil
 }

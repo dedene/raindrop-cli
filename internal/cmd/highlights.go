@@ -42,15 +42,15 @@ func (c *HighlightsListCmd) Run(flags *RootFlags) error {
 	}
 
 	for i, h := range raindrop.Highlights {
-		fmt.Fprintf(os.Stdout, "%s %d. %s\n", output.StyleBold("Highlight"), i+1, h.Text)
+		fmt.Fprintf(os.Stdout, "%s %d. %s\n", output.StyleBold("Highlight"), i+1, output.SanitizeText(h.Text))
 
 		if h.Note != "" {
-			fmt.Fprintf(os.Stdout, "   %s %s\n", output.StyleFaint("Note:"), h.Note)
+			fmt.Fprintf(os.Stdout, "   %s %s\n", output.StyleFaint("Note:"), output.SanitizeText(h.Note))
 		}
 
 		fmt.Fprintf(os.Stdout, "   %s %s  %s %s\n",
-			output.StyleFaint("Color:"), h.Color,
-			output.StyleFaint("ID:"), h.ID)
+			output.StyleFaint("Color:"), output.SanitizeInline(h.Color),
+			output.StyleFaint("ID:"), output.SanitizeInline(h.ID))
 		fmt.Fprintln(os.Stdout)
 	}
 
@@ -111,7 +111,7 @@ func (c *HighlightsAddCmd) Run(flags *RootFlags) error {
 		return output.WriteJSON(os.Stdout, resp.Item.Highlights)
 	}
 
-	fmt.Fprintf(os.Stdout, "Added highlight to '%s'\n", resp.Item.Title)
+	fmt.Fprintf(os.Stdout, "Added highlight to '%s'\n", output.SanitizeInline(resp.Item.Title))
 
 	return nil
 }

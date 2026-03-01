@@ -82,7 +82,7 @@ func (c *UpdateCmd) Run(flags *RootFlags) error {
 		return output.WriteJSON(os.Stdout, raindrop)
 	}
 
-	fmt.Fprintf(os.Stdout, "Updated: %s (ID: %d)\n", raindrop.Title, raindrop.ID)
+	fmt.Fprintf(os.Stdout, "Updated: %s (ID: %d)\n", output.SanitizeInline(raindrop.Title), raindrop.ID)
 
 	return nil
 }

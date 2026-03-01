@@ -7,6 +7,7 @@ import (
 	"runtime"
 
 	"github.com/dedene/raindrop-cli/internal/errfmt"
+	"github.com/dedene/raindrop-cli/internal/output"
 )
 
 type CopyCmd struct {
@@ -29,7 +30,7 @@ func (c *CopyCmd) Run(_ *RootFlags) error {
 		return err
 	}
 
-	fmt.Fprintf(os.Stdout, "Copied: %s\n", raindrop.Link)
+	fmt.Fprintf(os.Stdout, "Copied: %s\n", output.SanitizeInline(raindrop.Link))
 
 	return nil
 }

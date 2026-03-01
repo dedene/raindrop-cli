@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/dedene/raindrop-cli/internal/errfmt"
+	"github.com/dedene/raindrop-cli/internal/output"
 )
 
 type DeleteCmd struct {
@@ -30,7 +31,7 @@ func (c *DeleteCmd) Run(flags *RootFlags) error {
 		action = "permanently delete"
 	}
 
-	msg := fmt.Sprintf("%s '%s' (ID: %d)?", action, truncate(raindrop.Title, 40), c.ID)
+	msg := fmt.Sprintf("%s '%s' (ID: %d)?", action, truncate(output.SanitizeInline(raindrop.Title), 40), c.ID)
 	if !confirmAction(msg, flags) {
 		fmt.Fprintln(os.Stdout, "Cancelled.")
 

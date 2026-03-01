@@ -49,7 +49,7 @@ func (c *TagsListCmd) Run(flags *RootFlags) error {
 
 	tw := output.NewTableWriter(os.Stdout, "TAG", "COUNT")
 	for _, t := range tags {
-		tw.AddRow(t.Tag, fmt.Sprintf("%d", t.Count))
+		tw.AddRow(output.SanitizeInline(t.Tag), fmt.Sprintf("%d", t.Count))
 	}
 
 	tw.Render()

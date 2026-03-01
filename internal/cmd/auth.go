@@ -14,6 +14,7 @@ import (
 	"github.com/dedene/raindrop-cli/internal/auth"
 	"github.com/dedene/raindrop-cli/internal/config"
 	"github.com/dedene/raindrop-cli/internal/errfmt"
+	"github.com/dedene/raindrop-cli/internal/output"
 )
 
 type AuthCmd struct {
@@ -177,7 +178,7 @@ func (c *AuthLoginCmd) Run() error {
 		return nil //nolint:nilerr // user fetch is optional; auth succeeded
 	}
 
-	fmt.Fprintf(os.Stdout, "Successfully authenticated as %s\n", user.FullName)
+	fmt.Fprintf(os.Stdout, "Successfully authenticated as %s\n", output.SanitizeInline(user.FullName))
 
 	return nil
 }
@@ -268,7 +269,7 @@ func (c *AuthStatusCmd) verifyToken() error {
 		return errfmt.Format(err)
 	}
 
-	fmt.Fprintf(os.Stdout, "User: %s\n", user.FullName)
+	fmt.Fprintf(os.Stdout, "User: %s\n", output.SanitizeInline(user.FullName))
 
 	if user.Pro {
 		fmt.Fprintln(os.Stdout, "Plan: PRO")
