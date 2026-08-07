@@ -20,7 +20,7 @@ npx skills add dedene/raindrop-cli
 ### Homebrew
 
 ```bash
-brew install dedene/tap/raindrop
+brew install dedene/tap/raindrop-cli
 ```
 
 ### From source
